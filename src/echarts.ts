@@ -2719,6 +2719,56 @@ export function getMap(mapName: string) {
     };
 }
 
+function registerComponentModel(ModelCtor: new (...args: any) => ComponentModel) {
+    ComponentModel.registerClass(ModelCtor);
+}
+function registerSeriesModel(ModelCtor: new (...args: any) => SeriesModel) {
+    SeriesModel.registerClass(ModelCtor);
+}
+
+function registerComponentView(view: new (...args: any) => ComponentView) {
+    ComponentView.registerClass(view);
+}
+
+function registerChartView(view: new (...args: any) => ChartView) {
+    ChartView.registerClass(view);
+}
+interface RegisterAPI {
+    registerComponentModel: typeof registerComponentModel
+    registerSeriesModel: typeof registerSeriesModel
+    registerComponentView: typeof registerComponentView
+    registerChartView: typeof registerChartView
+    registerMap: typeof registerMap
+    registerTheme: typeof registerTheme
+    registerAction: typeof registerAction
+    registerLayout: typeof registerLayout
+    registerPreprocessor: typeof registerPreprocessor
+    registerProcessor: typeof registerProcessor
+    registerVisual: typeof registerVisual
+    registerLoading: typeof registerLoading
+    registerCoordinateSystem: typeof registerCoordinateSystem
+    registerPostUpdate: typeof registerPostUpdate
+}
+
+export function use(doRegister: (registerApi: RegisterAPI) => void) {
+    doRegister({
+        registerMap,
+        registerTheme,
+        registerAction,
+        registerLayout,
+        registerPreprocessor,
+        registerProcessor,
+        registerVisual,
+        registerLoading,
+        registerCoordinateSystem,
+        registerPostUpdate,
+        registerComponentModel,
+        registerSeriesModel,
+        registerComponentView,
+        registerChartView
+    });
+}
+
 /**
  * Globa dispatchAction to a specified chart instance.
  */
